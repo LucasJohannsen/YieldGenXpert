@@ -5,13 +5,12 @@ import geopandas as gpd
 import datetime
 import numpy as np
 # check the environment and set an variable to use the right mode
-if 'CUDA_VISIBLE_DEVICES' in os.environ:
-    mode = 'gpu'
+if mode == 'gpu':
     import cudf
     from cuml.ensemble import RandomForestRegressor as rf_gpu
     from cuml.metrics.regression import mean_squared_error, r2_score , mean_absolute_error
 else:
-    mode = 'cpu'
+    pass
 import os
 from scipy.sparse import csr_matrix
 from sklearn.metrics import mean_squared_error, r2_score
@@ -50,9 +49,6 @@ def rf(mode, best_param, X_train, X_test, y_train, y_test):
         # Calculate the R-squared value
         r2 = r2_score(y_test, y_pred)
     else:
-        # check data types in X_train and X_test and raise an error if they are not float
-        if X_train.dtypes.any() != 'float' or X_test.dtypes.any() != 'float':
-            raise TypeError('X_train and X_test must be of type float')
         # Create crs matrix from X_test and X_train
         X_train_csr = csr_matrix(X_train)
         X_test_csr = csr_matrix(X_test)
