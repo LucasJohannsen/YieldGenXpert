@@ -51,4 +51,15 @@ def display_stats_and_histogram(gdf, column_name : str , bins = 20):
     # Display the combined content
     display(HTML(html_content))
 
+def get_runtime_mode():
+    try:
+        # Check if `nvidia-smi` command runs successfully
+        result = subprocess.run(['nvidia-smi'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        if result.returncode == 0:
+            return 'gpu'
+        else:
+            return 'cpu'
+    except FileNotFoundError:
+        # `nvidia-smi` is not found
+        return 'cpu'
 
