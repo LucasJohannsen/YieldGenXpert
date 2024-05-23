@@ -67,11 +67,11 @@ def harvester_data(path, path_b):
     # Filter the points that are within the polygon from the GeoDataFrame
     df = df[df.within(poly)]
     # clean data
-    df = df[df.Zero_AreaY != 1]
+    df = df[df.Zero_AreaYield != 1]
     #df.loc[df['Zero_AreaY'] == 1, 'AreaYield'] = 0.001
-    df = df[df.Zero_TimeY != 1]
+    df = df[df.Zero_TimeYield != 1]
     df = df[df.Zero_Speed != 1]
-    df = df[df.Zero_Moist != 1]
+    df = df[df.Zero_Moisture != 1]
     df = df[df.overlap != 1]
     df = df[df.SDF != 1]
     df.rename(columns={'AreaYield': 'z'}, inplace=True)
