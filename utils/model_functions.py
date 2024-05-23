@@ -59,7 +59,7 @@ def rf(mode, best_param, X_train, X_test, y_train, y_test):
         # Fit the model
         model.fit(X_train_csr, y_train)
         # Predict the values
-        y_pred = model.predict(X_test_csr)
+        y_pred = model.predict(X_test_csr).to_pandas()
         # Calculate the mean squared error
         mse = mean_squared_error(y_test, y_pred)
         # Calculate the R-squared value
