@@ -5,32 +5,19 @@ import geopandas as gpd
 import datetime
 import numpy as np
 # check the environment and set an variable to use the right mode
-import subprocess
-
-def get_runtime_mode():
-    try:
-        # Check if `nvidia-smi` command runs successfully
-        result = subprocess.run(['nvidia-smi'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        if result.returncode == 0:
-            return 'gpu'
-        else:
-            return 'cpu'
-    except FileNotFoundError:
-        # `nvidia-smi` is not found
-        return 'cpu'
+from YieldGenXpert.utils.styles import get_runtime_mode
 
 mode = get_runtime_mode()
 
 if mode == 'gpu':
     import cudf
-    from cuml.ensemble import RandomForestRegressor as rf_gpu
+    from cuml.ensemble import RandomForestRegressor 
     from cuml.metrics.regression import mean_squared_error, r2_score , mean_absolute_error
 else:
-    pass
-import os
-from scipy.sparse import csr_matrix
-from sklearn.metrics import mean_squared_error, r2_score
-from sklearn.ensemble import RandomForestRegressor
+    from scipy.sparse import csr_matrix
+    from sklearn.metrics import mean_squared_error, r2_score
+    from sklearn.ensemble import RandomForestRegressor
+
 
 
 def rf(mode, best_param, X_train, X_test, y_train, y_test):
@@ -55,7 +42,7 @@ def rf(mode, best_param, X_train, X_test, y_train, y_test):
         X_test = X_test.astype(np.float32)
         X_train_csr, X_test_csr, y_train, y_test = cudf.from_pandas(X_train), cudf.from_pandas(X_test),cudf.from_pandas(y_train), cudf.from_pandas(y_test)
         # Create the Random Forest model
-        model = rf_gpu(**best_param)
+        model = RandomForestRegressor(**best_param)
         # Fit the model
         model.fit(X_train_csr, y_train)
         # Predict the values
