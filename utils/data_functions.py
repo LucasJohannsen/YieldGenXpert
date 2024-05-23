@@ -75,10 +75,13 @@ def harvester_data(path, path_b):
     df = df[df.overlap != 1]
     df = df[df.SDF != 1]
     df.rename(columns={'AreaYield': 'z'}, inplace=True)
-    df = df.drop(columns=['X', 'Y'])
+    #if there are X and Y columns, drop them
+    if 'X' in df.columns and 'Y' in df.columns:
+        df = df.drop(columns=['X', 'Y'])
+    # create x and y columns from geometry
     df['x'] = df.geometry.x
     df['y'] = df.geometry.y
-    gdf = df[['x', 'y', 'z', 'geometry']]
+    gdf = df[['x', 'y', 'z', 'geometry','Path']]
     return gdf, poly_gdf, poly
 
 def dgm_data(dgm_files, path_b, slope_files=None, aspect_files=None):

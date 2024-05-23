@@ -6,15 +6,23 @@ import geopandas as gpd
 import numpy as np
 from sklearn.metrics import mean_squared_error
 import numpy as np
-from sklearn.model_selection import train_test_split
+import os
 
 
 from utils.data_functions import harvester_data, geo_vista_data
 
-import cudf
-from cuml.ensemble import RandomForestRegressor
-from cuml.model_selection import train_test_split
-from cuml.metrics import mean_squared_error, r2_score
+if 'CUDA_VISIBLE_DEVICES' in os.environ:
+    mode = 'gpu'
+    import cudf
+    from cuml.ensemble import RandomForestRegressor
+    from cuml.model_selection import train_test_split
+    from cuml.metrics import mean_squared_error, r2_score
+else:
+    mode = 'cpu'
+    from sklearn.ensemble import RandomForestRegressor
+    from sklearn.model_selection import train_test_split
+    from sklearn.metrics import mean_squared_error, r2_score
+
 
 from utils.data_functions import harvester_data, dgm_data, geo_vista_data
 from utils.spatial_functions import spatial_features
@@ -165,8 +173,7 @@ def hyperparameters(gdf,poly_gdf, poly ):
         Y_pred = model.predict(X_test_crs)
         error = mean_squared_error(y_test, Y_pred)
         
-        return  error
-    return objective
+        return objective
     study = optuna.create_study()
     try:
         objective = hyperparameters(gdf, poly_gdf, poly)

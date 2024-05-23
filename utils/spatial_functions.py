@@ -34,9 +34,9 @@ def spatial_features(den, gdf, poly_gdf, poly,range=5):
     # Calculate the distance from each point to each point in the gdf
     dist = cdist(gdf[['x', 'y']], ggdf[['x', 'y']], metric='euclidean')
 
-    # Get the 5th percentile of the distances
-    pct_5 = np.percentile(dist, range)
-    dist[dist > pct_5] = np.max(dist.flatten())
+    # Get the range percentile of the distances
+    pct_ra = np.percentile(dist, range)
+    dist[dist > pct_ra] = np.max(dist.flatten())
 
     # Convert gdf to DataFrame and join distance DataFrame
     gdf = pd.DataFrame(gdf)
