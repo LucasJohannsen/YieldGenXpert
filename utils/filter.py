@@ -167,15 +167,5 @@ def save_gdf_as_shp(gdf, path):
     # Save gdf as shapefile
     gdf.to_file(path)
     print("Done")
-# write a main function to call all the functions and test them
-def main():
-    gdf = load_data()
-    gdf = calculate_zero_flags(gdf)
-    gdf, lines = calculate_path_numbers(gdf)
-    gdf, ww = calculate_min_distance(gdf, lines)
-    gdf = calculate_overlap_flag(gdf, ww)
-    gdf = calculate_SDF_flag(gdf)
-    save_gdf_as_shp(gdf, r"data\Filter_ev")
 
-main()
 

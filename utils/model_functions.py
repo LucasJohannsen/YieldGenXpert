@@ -69,10 +69,3 @@ def rf(mode, best_param, X_train, X_test, y_train, y_test):
 
     return mse, r2
 
-# test the function 
-X_train = pd.DataFrame({'a': [1, 2, 3, 4], 'b': [5, 6, 7, 8]})
-X_test = pd.DataFrame({'a': [5, 6, 7, 8], 'b': [9, 10, 11, 12]})
-y_train = pd.Series([1, 2, 3, 4])
-y_test = pd.Series([5, 6, 7, 8])
-best_param = {'n_estimators': 10, 'max_depth': 5}
-mse, r2 = rf(mode, best_param, X_train, X_test, y_train, y_test)
