@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 from IPython.display import display, HTML
 import base64
 from io import BytesIO
+import subprocess
 
 def display_stats_and_histogram(gdf, column_name : str , bins = 20):
     """
