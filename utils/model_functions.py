@@ -5,6 +5,22 @@ import geopandas as gpd
 import datetime
 import numpy as np
 # check the environment and set an variable to use the right mode
+import subprocess
+
+def get_runtime_mode():
+    try:
+        # Check if `nvidia-smi` command runs successfully
+        result = subprocess.run(['nvidia-smi'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        if result.returncode == 0:
+            return 'gpu'
+        else:
+            return 'cpu'
+    except FileNotFoundError:
+        # `nvidia-smi` is not found
+        return 'cpu'
+
+mode = get_runtime_mode()
+
 if mode == 'gpu':
     import cudf
     from cuml.ensemble import RandomForestRegressor as rf_gpu
