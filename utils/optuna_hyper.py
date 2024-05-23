@@ -8,24 +8,15 @@ from sklearn.metrics import mean_squared_error
 import numpy as np
 import os
 
-
-from utils.data_functions import harvester_data, geo_vista_data
-
-if 'CUDA_VISIBLE_DEVICES' in os.environ:
-    mode = 'gpu'
-    import cudf
-    from cuml.ensemble import RandomForestRegressor
-    from cuml.model_selection import train_test_split
-    from cuml.metrics import mean_squared_error, r2_score
-else:
-    mode = 'cpu'
-    from sklearn.ensemble import RandomForestRegressor
-    from sklearn.model_selection import train_test_split
-    from sklearn.metrics import mean_squared_error, r2_score
+import cudf
+from cuml.ensemble import RandomForestRegressor
+from cuml.model_selection import train_test_split
+from cuml.metrics import mean_squared_error, r2_score
 
 
-from utils.data_functions import harvester_data, dgm_data, geo_vista_data
-from utils.spatial_functions import spatial_features
+
+from YieldGenXpert.utils.data_functions import harvester_data, dgm_data, geo_vista_data
+from YieldGenXpert.utils.spatial_functions import spatial_features
 
 
 def spatial_hyperparameter(path, path_b, dgm_files, aspect_files, field, co=True, sp=True, split=0.3, slope_files=None, vista=False):
