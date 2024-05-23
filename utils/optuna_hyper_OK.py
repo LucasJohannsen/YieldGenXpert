@@ -9,10 +9,9 @@ import numpy as np
 from sklearn.model_selection import train_test_split
 from pykrige.ok import OrdinaryKriging
 
-from utils.data_functions import harvester_data, geo_vista_data
 
-from utils.data_functions import harvester_data, dgm_data, geo_vista_data
-from utils.spatial_functions import spatial_features
+from YieldGenXpert.utils.data_functions import harvester_data, dgm_data, geo_vista_data
+from YieldGenXpert.utils.spatial_functions import spatial_features
 
 
 def OK_hyperparameter(path, path_b, field,  split=0.3, slope_files=None, vista=False):
