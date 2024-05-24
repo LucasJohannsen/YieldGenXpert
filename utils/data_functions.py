@@ -81,7 +81,7 @@ def harvester_data(path, path_b):
     # create x and y columns from geometry
     df['x'] = df.geometry.x
     df['y'] = df.geometry.y
-    gdf = df[['x', 'y', 'z', 'geometry','Path']]
+    gdf = df[['x', 'y', 'z', 'geometry']]
     return gdf, poly_gdf, poly
 
 def dgm_data(dgm_files, path_b, slope_files=None, aspect_files=None):
