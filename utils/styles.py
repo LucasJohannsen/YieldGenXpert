@@ -21,12 +21,12 @@ def display_stats_and_histogram(gdf, column_name : str , bins = 20):
     styled_stats = (gdf[column_name].describe()
                     .to_frame()
                     .style.format("{:.2f}")  # Adjust the precision to 2 decimal places
-                    .set_caption(f"Descriptive Statistics of {column_name} after filtering"))
+                    .set_caption(f"Descriptive Statistics of {column_name}"))
 
     # Save the histogram plot to a file
     plt.figure(figsize=(6, 4))  # Smaller size
     gdf[column_name].hist(bins=bins, color='skyblue', edgecolor='black')  # Nicer look with fewer bins
-    plt.title(f'Histogram of {column_name} after filtering')
+    plt.title(f'Histogram of {column_name}')
     plt.xlabel(column_name)
     plt.ylabel('Frequency')
     plt.grid(False)  # Turn off the grid for a cleaner look
